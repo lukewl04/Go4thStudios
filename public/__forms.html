@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" /><title>Go4th Studio form registration</title></head>
+  <body>
+    <!-- Netlify scans static HTML at deploy time. Keep these field names in sync with ContactForm in App.jsx. -->
+    <form name="go4th-contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="go4th-contact" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="business" />
+      <input type="tel" name="phone" />
+      <select name="service"><option>New website</option><option>Website redesign</option><option>Website maintenance</option><option>Not sure yet</option></select>
+      <select name="plan"><option>Not sure yet</option><option>Starter</option><option>Business</option><option>Website Care</option></select>
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>

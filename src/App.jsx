@@ -1,11 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 
-// ---------------------------------------------------------------
-// EDIT YOUR CONTENT HERE
-// Replace the email before publishing. The two sites below are
-// demos, so they're labelled as concepts (not real client work).
-// ---------------------------------------------------------------
+
 const site = {
   name: 'Go4th Studio',
   email: 'YOUR-EMAIL@example.com',
@@ -224,7 +220,138 @@ function SearchJourney() {
   )
 }
 
+function ContactForm({ selectedPlan, onPlanChange }) {
+  const [status, setStatus] = useState('idle')
+  const [error, setError] = useState('')
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    if (status === 'sending') return
+
+    const form = event.currentTarget
+    setStatus('sending')
+    setError('')
+
+    // Vite's local preview doesn't process Netlify Forms submissions.
+    if (import.meta.env.DEV) {
+      setStatus('error')
+      setError('This form can receive enquiries once the website is deployed to Netlify. Local preview does not deliver messages.')
+      return
+    }
+
+    try {
+      const response = await fetch('/__forms.html', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString(),
+      })
+
+      if (!response.ok) throw new Error('Your message could not be sent.')
+
+      form.reset()
+      onPlanChange('Not sure yet')
+      setStatus('success')
+    } catch (submissionError) {
+      setStatus('error')
+      setError('Something went wrong sending your enquiry. Please try again or contact me by email.')
+    }
+  }
+
+  return (
+    <form
+      name="go4th-contact"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      className="contact-form"
+      onSubmit={handleSubmit}
+    >
+      <input type="hidden" name="form-name" value="go4th-contact" />
+      <p className="contact-trap" aria-hidden="true">
+        <label>Leave this field empty <input name="bot-field" tabIndex={-1} autoComplete="off" /></label>
+      </p>
+
+      <div className="form-heading">
+        <span className="form-eyebrow">FREE, NO-OBLIGATION QUOTE</span>
+        <h3>Tell me about your project.</h3>
+        <p>Just a few details to get started. I'll get back to you with the next steps.</p>
+      </div>
+
+      <div className="form-row">
+        <div className="form-field">
+          <label htmlFor="contact-name">Your name <span>*</span></label>
+          <input id="contact-name" name="name" type="text" autoComplete="name" placeholder="John Smith" required maxLength={100} />
+        </div>
+        <div className="form-field">
+          <label htmlFor="contact-email">Email address <span>*</span></label>
+          <input id="contact-email" name="email" type="email" autoComplete="email" placeholder="john@example.com" required maxLength={254} />
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="form-field">
+          <label htmlFor="contact-business">Business name</label>
+          <input id="contact-business" name="business" type="text" autoComplete="organization" placeholder="Your business name" maxLength={120} />
+        </div>
+        <div className="form-field">
+          <label htmlFor="contact-phone">Phone number <small>(optional)</small></label>
+          <input id="contact-phone" name="phone" type="tel" autoComplete="tel" placeholder="07..." maxLength={35} />
+        </div>
+      </div>
+
+      <div className="form-row">
+        <div className="form-field">
+          <label htmlFor="contact-service">What do you need? <span>*</span></label>
+          <select id="contact-service" name="service" defaultValue="" required>
+            <option value="" disabled>Choose a service</option>
+            <option>New website</option>
+            <option>Website redesign</option>
+            <option>Website maintenance</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div className="form-field">
+          <label htmlFor="contact-plan">Interested in a package?</label>
+          <select id="contact-plan" name="plan" value={selectedPlan} onChange={(event) => onPlanChange(event.target.value)}>
+            <option>Not sure yet</option>
+            <option>Starter</option>
+            <option>Business</option>
+            <option>Website Care</option>
+          </select>
+        </div>
+      </div>
+
+      <div className="form-field">
+        <label htmlFor="contact-message">Tell me about your project <span>*</span></label>
+        <textarea
+          id="contact-message"
+          name="message"
+          rows={5}
+          placeholder="What does your business do, and what would you like your website to achieve?"
+          required
+          minLength={10}
+          maxLength={4000}
+        />
+      </div>
+
+      <button className="btn btn-dark form-submit" type="submit" disabled={status === 'sending'}>
+        {status === 'sending' ? 'Sending your enquiry...' : 'Request my free quote'}
+        {status !== 'sending' && <ArrowIcon diagonal />}
+      </button>
+      <p className="form-privacy">Your details will only be used to respond to your enquiry.</p>
+
+      <div className="form-feedback" role="status" aria-live="polite">
+        {status === 'success' && (
+          <p className="form-success">Thanks for getting in touch. Your enquiry has been sent successfully.</p>
+        )}
+        {status === 'error' && <p className="form-error">{error}</p>}
+      </div>
+    </form>
+  )
+}
+
 function App() {
+  const [selectedPlan, setSelectedPlan] = useState('Not sure yet')
   const subject = encodeURIComponent('Website enquiry — Go4th Studio')
   const mail = `mailto:${site.email}?subject=${subject}`
 
@@ -243,8 +370,9 @@ function App() {
             <a href="#work">Our work</a>
             <a href="#process">The process</a>
             <a href="#pricing">Pricing</a>
+            <a href="#contact">Contact</a>
           </nav>
-          <a className="btn btn-dark btn-nav" href={mail}>Let's talk <ArrowIcon diagonal /></a>
+          <a className="btn btn-dark btn-nav" href="#contact">Let's talk <ArrowIcon diagonal /></a>
         </div>
       </header>
 
@@ -258,7 +386,7 @@ function App() {
               <h1 id="hero-heading">{site.headlineStart}<span className="hero-accent">{site.headlineHighlight}</span>{site.headlineEnd}</h1>
               <p className="hero-sub">{site.intro}</p>
               <div className="hero-actions">
-                <a href={mail} className="btn btn-accent">Get a free quote <ArrowIcon diagonal /></a>
+                <a href="#contact" className="btn btn-accent">Get a free quote <ArrowIcon diagonal /></a>
                 <a href="#work" className="btn btn-outline-light">See example websites <ArrowIcon /></a>
               </div>
               <p className="hero-footnote">Straightforward pricing <span /> Designed for mobile <span /> Built for local search</p>
@@ -365,7 +493,7 @@ function App() {
                   <ul>
                     {plan.items.map((item) => <li key={item}><TickIcon /> <span>{item}</span></li>)}
                   </ul>
-                  <a className={`btn ${plan.featured ? 'btn-accent' : 'btn-outline-dark'}`} href={mail}>
+                  <a className={`btn ${plan.featured ? 'btn-accent' : 'btn-outline-dark'}`} href="#contact" onClick={() => setSelectedPlan(plan.name)}>
                     Enquire about {plan.name.toLowerCase()} <ArrowIcon diagonal />
                   </a>
                 </article>
@@ -393,20 +521,23 @@ function App() {
           </div>
         </section>
 
-        <section className="bottom-cta" id="contact">
-          <div className="container">
-            <div className="cta-panel">
-              <div className="cta-orbit" aria-hidden="true" />
-              <div className="cta-content">
-                <span className="eyebrow eyebrow-light"><span className="eyebrow-dot" /> LET'S BUILD SOMETHING BETTER</span>
-                <h2>Make a stronger first impression with your next customer.</h2>
-                <p>Tell me what your business does and what you need. I'll reply with the next steps and a clear quote.</p>
-                <div className="cta-actions">
-                  <a className="btn btn-accent" href={mail}>Get your free quote <ArrowIcon diagonal /></a>
-                  <a className="cta-email" href={`mailto:${site.email}`}>{site.email}</a>
-                </div>
+        <section className="section contact-section" id="contact" aria-labelledby="contact-heading">
+          <div className="container contact-grid">
+            <div className="contact-intro">
+              <span className="section-label">LET'S WORK TOGETHER</span>
+              <h2 id="contact-heading">Your next customer could be one search away.</h2>
+              <p>Whether you need your first website or a better one, tell me about your business and what you're looking to achieve.</p>
+              <div className="contact-reasons">
+                <div><TickIcon /><span>Free, no-obligation quote</span></div>
+                <div><TickIcon /><span>Clear, upfront pricing</span></div>
+                <div><TickIcon /><span>Direct contact from start to finish</span></div>
+              </div>
+              <div className="contact-email-block">
+                <span>Prefer email?</span>
+                <a href={mail}>{site.email} <ArrowIcon diagonal /></a>
               </div>
             </div>
+            <ContactForm selectedPlan={selectedPlan} onPlanChange={setSelectedPlan} />
           </div>
         </section>
       </main>
@@ -424,7 +555,7 @@ function App() {
             <a href="#why">Why Go4th</a>
             <a href="#work">Our work</a>
             <a href="#pricing">Pricing</a>
-            <a href={mail}>Contact</a>
+            <a href="#contact">Contact</a>
           </div>
           <div className="footer-bottom">
             <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>
