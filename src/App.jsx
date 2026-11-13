@@ -4,7 +4,7 @@ import './App.css'
 
 const site = {
   name: 'Go4th Studio',
-  email: 'YOUR-EMAIL@example.com',
+  email: 'go4thstudios@gmail.com',
   headlineStart: 'Be the business they ',
   headlineHighlight: 'find,',
   headlineEnd: ' trust and call.',
@@ -68,7 +68,7 @@ const site = {
     {
       name: 'Starter',
       eyebrow: 'A strong first impression',
-      price: '£300',
+      price: '£250',
       note: 'one-off',
       description: 'Ideal for a small business that needs a professional presence online.',
       items: ['One-page website', 'Mobile-friendly layout', 'Contact form and click-to-call', 'Search-friendly page setup', 'Typical turnaround: around 3 days'],
@@ -76,7 +76,7 @@ const site = {
     {
       name: 'Business',
       eyebrow: 'Most popular',
-      price: '£450',
+      price: '£350',
       note: 'one-off',
       featured: true,
       description: 'More space to showcase your services and help local customers find you.',
