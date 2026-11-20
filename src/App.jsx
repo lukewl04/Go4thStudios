@@ -5,17 +5,20 @@ import './App.css'
 const site = {
   name: 'Go4th Studio',
   email: 'go4thstudios@gmail.com',
+  phone: '07453394350',
+  phoneDisplay: '07453 394350',
+  whatsapp: 'https://wa.me/447453394350?text=' + encodeURIComponent('Hi, I\'d like a quote for a website.'),
   headlineStart: 'Be the business they ',
   headlineHighlight: 'find,',
   headlineEnd: ' trust and call.',
   intro:
-    'When someone searches Google for a service you offer, your website should give them every reason to choose you. I build professional, search-friendly websites that make a strong first impression and turn more visitors into enquiries.',
+    'When someone searches online for a service you offer, your website should give them every reason to choose you. I build professional, search-friendly websites that make a strong first impression and turn more visitors into enquiries.',
 
   benefits: [
     {
       number: '01',
       title: 'Get found by local customers',
-      text: 'Clear service pages, search-friendly content structure and the SEO essentials that help Google understand what you do and where you work.',
+      text: 'Clear service pages, search-friendly content structure and the SEO essentials that help search engines understand what you do and where you work.',
     },
     {
       number: '02',
@@ -68,33 +71,43 @@ const site = {
     {
       name: 'Starter',
       eyebrow: 'A strong first impression',
-      price: '£250',
+      price: '£200',
       note: 'one-off',
       description: 'Ideal for a small business that needs a professional presence online.',
       items: ['One-page website', 'Mobile-friendly layout', 'Contact form and click-to-call', 'Search-friendly page setup', 'Typical turnaround: around 3 days'],
+      cta: 'Enquire about starter',
     },
     {
       name: 'Business',
       eyebrow: 'Most popular',
-      price: '£350',
+      price: '£300',
       note: 'one-off',
       featured: true,
       description: 'More space to showcase your services and help local customers find you.',
       items: ['Up to 5 pages', 'Dedicated service information', 'Contact form and Google Maps', 'On-page SEO essentials', 'Domain and hosting setup', 'Typical turnaround: around 5 days'],
+      cta: 'Enquire about business',
     },
     {
-      name: 'Website Care',
-      eyebrow: 'Optional ongoing support',
-      price: '£25',
-      note: 'per month',
-      description: 'Keep your website looked after without having to manage it yourself.',
-      items: ['Hosting management', 'Small content updates', 'Domain renewal management', 'Ongoing help when needed', 'Cancel anytime'],
+      name: 'Custom Website',
+      eyebrow: 'Built around your business',
+      price: 'Custom',
+      note: 'quote',
+      description: 'For businesses that need more than a standard package. We agree exactly what you need, and you get one fixed quote before any work starts.',
+      items: [
+        'Bespoke design and as many pages as you need',
+        'Extra features such as booking, quote or enquiry systems',
+        'Automation to save you time, like enquiry alerts and reminders',
+        'Integrations with the tools you already use',
+        'Domain, hosting and launch support',
+        'Timeline and price agreed upfront',
+      ],
+      cta: 'Get a custom quote',
     },
   ],
 
   faqs: [
     {
-      question: 'Will my website appear first on Google?',
+      question: 'Will my website appear first in search results?',
       answer:
         'No one can honestly guarantee the number-one spot. Every site is built with solid SEO foundations to support search visibility, but rankings also depend on competition, your Google Business Profile and ongoing local SEO work.',
     },
@@ -104,9 +117,14 @@ const site = {
         'You can send over anything you already have. I can help organise your service information and suggest what content will make your website clearer and more useful to customers.',
     },
     {
+      question: 'What does a custom website include?',
+      answer:
+        'Anything beyond the Starter and Business packages: more pages, a bespoke design, booking or quote systems, automation and integrations. Message me on WhatsApp or use the form, tell me what you need and I will send you a fixed quote.',
+    },
+    {
       question: 'Are there any ongoing costs?',
       answer:
-        'The website packages are one-off fees. Domains and any third-party services may have separate renewal costs. The optional care plan is £25 per month for ongoing website support.',
+        'The website packages are one-off fees. Domains, hosting and any third-party services may have separate renewal costs. If you would like ongoing help with updates or maintenance, just ask and I will arrange it.',
     },
     {
       question: 'How does payment work?',
@@ -142,6 +160,23 @@ function TickIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
       <path d="m5 12 4.5 4.5L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function PhoneIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function WhatsAppIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <path d="M20 11.5a8 8 0 0 1-11.9 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M9.3 8.6c.2 2.6 2.3 4.9 5.4 5.9l1.2-1.3-1.8-1-.8.7c-.8-.4-1.6-1.1-2-2l.7-.8-1-1.8-1.7 1.3Z" fill="currentColor" />
     </svg>
   )
 }
@@ -191,22 +226,34 @@ function SearchJourney() {
         <span className="journey-kicker">FROM SEARCH TO ENQUIRY</span>
         <span className="journey-indicator"><span /> Customer journey</span>
       </div>
-      <div className="journey-search">
+
+      <div className="gsearch">
         <SearchIcon />
-        <span>plumber near me</span>
-        <span className="journey-search-button">Search</span>
+        <span className="gsearch-query">plumber near me</span>
+        <span className="gsearch-x" aria-hidden="true">×</span>
+        <span className="gsearch-sep" aria-hidden="true" />
+        <span className="gsearch-go"><SearchIcon /></span>
       </div>
+
       <div className="journey-connector"><span /></div>
-      <div className="journey-result">
-        <div className="journey-result-icon">4</div>
-        <div className="journey-result-copy">
-          <span className="journey-result-label">YOUR BUSINESS WEBSITE</span>
-          <strong>Professional. Local. Easy to contact.</strong>
-          <p>Helpful service pages, a great mobile experience and clear next steps.</p>
-          <div className="journey-result-chips"><span>Services</span><span>Areas covered</span><span>Contact</span></div>
+
+      <div className="gresult">
+        <div className="gresult-site">
+          <span className="gresult-favicon">4</span>
+          <div>
+            <strong>Your Business Name</strong>
+            <small>https://www.yourbusiness.co.uk</small>
+          </div>
+        </div>
+        <h4>Trusted Local Plumber | Call Today for a Free Quote</h4>
+        <p>Helpful service pages, a great mobile experience and clear next steps.</p>
+        <div className="gresult-rating">
+          <span aria-hidden="true">★★★★★</span> Rated by local customers
         </div>
       </div>
+
       <div className="journey-connector"><span /></div>
+
       <div className="journey-outcome">
         <span className="journey-outcome-icon"><TickIcon /></span>
         <div>
@@ -215,7 +262,7 @@ function SearchJourney() {
         </div>
         <ArrowIcon diagonal />
       </div>
-      <p className="journey-disclaimer">Illustrative customer journey, not a Google ranking claim.</p>
+      <p className="journey-disclaimer">Illustrative customer journey, not a search ranking claim.</p>
     </div>
   )
 }
@@ -253,7 +300,7 @@ function ContactForm({ selectedPlan, onPlanChange }) {
       setStatus('success')
     } catch (submissionError) {
       setStatus('error')
-      setError('Something went wrong sending your enquiry. Please try again or contact me by email.')
+      setError('Something went wrong sending your enquiry. Please try again, WhatsApp me or contact me by email.')
     }
   }
 
@@ -316,7 +363,7 @@ function ContactForm({ selectedPlan, onPlanChange }) {
             <option>Not sure yet</option>
             <option>Starter</option>
             <option>Business</option>
-            <option>Website Care</option>
+            <option>Custom Website</option>
           </select>
         </div>
       </div>
@@ -389,6 +436,12 @@ function App() {
                 <a href="#contact" className="btn btn-accent">Get a free quote <ArrowIcon diagonal /></a>
                 <a href="#work" className="btn btn-outline-light">See example websites <ArrowIcon /></a>
               </div>
+              <p className="hero-direct">
+                Prefer to chat?{' '}
+                <a href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                {' '}or{' '}
+                <a href={`tel:${site.phone}`}>call {site.phoneDisplay}</a>
+              </p>
               <p className="hero-footnote">Straightforward pricing <span /> Designed for mobile <span /> Built for local search</p>
             </div>
             <SearchJourney />
@@ -494,12 +547,12 @@ function App() {
                     {plan.items.map((item) => <li key={item}><TickIcon /> <span>{item}</span></li>)}
                   </ul>
                   <a className={`btn ${plan.featured ? 'btn-accent' : 'btn-outline-dark'}`} href="#contact" onClick={() => setSelectedPlan(plan.name)}>
-                    Enquire about {plan.name.toLowerCase()} <ArrowIcon diagonal />
+                    {plan.cta} <ArrowIcon diagonal />
                   </a>
                 </article>
               ))}
             </div>
-            <p className="pricing-note">Website projects: 50% upfront and 50% on approval. Domain and third-party renewal fees may be separate. Timelines are estimates and depend on content and feedback.</p>
+            <p className="pricing-note">Website projects: 50% upfront and 50% on approval. Custom websites are quoted individually. Domain, hosting and third-party renewal fees may be separate. Timelines are estimates and depend on content and feedback.</p>
           </div>
         </section>
 
@@ -532,6 +585,17 @@ function App() {
                 <div><TickIcon /><span>Clear, upfront pricing</span></div>
                 <div><TickIcon /><span>Direct contact from start to finish</span></div>
               </div>
+              <div className="contact-direct">
+                <span>Want a quick quote? Message or call me directly.</span>
+                <div className="contact-direct-buttons">
+                  <a className="btn btn-whatsapp" href={site.whatsapp} target="_blank" rel="noopener noreferrer">
+                    <WhatsAppIcon /> WhatsApp me
+                  </a>
+                  <a className="btn btn-outline-dark" href={`tel:${site.phone}`}>
+                    <PhoneIcon /> {site.phoneDisplay}
+                  </a>
+                </div>
+              </div>
               <div className="contact-email-block">
                 <span>Prefer email?</span>
                 <a href={mail}>{site.email} <ArrowIcon diagonal /></a>
@@ -556,6 +620,8 @@ function App() {
             <a href="#work">Our work</a>
             <a href="#pricing">Pricing</a>
             <a href="#contact">Contact</a>
+            <a href={site.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href={`tel:${site.phone}`}>{site.phoneDisplay}</a>
           </div>
           <div className="footer-bottom">
             <span>© {new Date().getFullYear()} {site.name}. All rights reserved.</span>

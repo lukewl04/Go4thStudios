@@ -62,26 +62,35 @@ svg { width: 19px; height: 19px; display: inline-block; flex-shrink: 0; }
 .hero-footnote { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; color: #a4b6c8; font-size: 11px; }
 .hero-footnote span { width: 3px; height: 3px; border-radius: 50%; background: #a4b6c8; }
 
-/* Visual: an illustrative customer journey, not an actual Google result */
+/* Visual: clean customer journey card with a search-engine style search bar and result (illustrative, not a ranking claim) */
 .journey { border: 1px solid #ffffff28; border-radius: 19px; padding: 26px; background: linear-gradient(165deg, #fff 0%, #f5f9fd 100%); color: #14243a; box-shadow: 0 35px 90px #0006, 0 0 0 8px #ffffff08; transform: rotate(1.5deg); }
 .journey-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 22px; }
 .journey-kicker { font-weight: 800; font-size: 10px; letter-spacing: .13em; color: #6b7b91; }
 .journey-indicator { display: inline-flex; align-items: center; gap: 6px; border-radius: 100px; padding: 7px 9px; background: #e5f8ee; color: #217250; font-size: 9px; font-weight: 700; white-space: nowrap; }
 .journey-indicator > span { height: 6px; width: 6px; border-radius: 50%; background: #329a6b; }
-.journey-search { display: flex; align-items: center; gap: 12px; min-height: 54px; background: #fff; border: 1px solid #e4e9f0; border-radius: 11px; padding: 7px 8px 7px 15px; box-shadow: 0 7px 15px #12253e07; }
-.journey-search svg { color: #6f8499; }
-.journey-search > span:nth-child(2) { flex: 1; font-size: 14px; font-weight: 600; }
-.journey-search-button { padding: 10px 12px; border-radius: 7px; background: #e7f0fa; color: #24578a; font-size: 10px; font-weight: 800; }
 .journey-connector { display: flex; justify-content: center; height: 26px; }
 .journey-connector span { width: 1px; height: 100%; border-left: 2px dashed #bfd4e0; }
-.journey-result { display: flex; gap: 12px; border: 1px solid #dae7e7; border-radius: 12px; background: #fff; padding: 16px; box-shadow: 0 9px 25px #15384c09; }
-.journey-result-icon { display: grid; place-items: center; width: 37px; height: 37px; flex-shrink: 0; border-radius: 9px; background: #13263d; color: #a7f3ce; font: 800 23px/1 'Manrope', sans-serif; }
-.journey-result-copy { min-width: 0; }
-.journey-result-label { display: block; margin: 0 0 6px; color: #328568; font-size: 9px; font-weight: 800; letter-spacing: .1em; }
-.journey-result strong { display: block; color: #14243a; font: 800 15px/1.4 'Manrope', sans-serif; letter-spacing: -.035em; }
-.journey-result p { margin: 7px 0 13px; color: #728195; font-size: 11px; line-height: 1.6; }
-.journey-result-chips { display: flex; gap: 5px; flex-wrap: wrap; }
-.journey-result-chips span { border-radius: 5px; background: #f2f5f9; color: #65788f; padding: 6px 7px; font-size: 9px; font-weight: 700; }
+
+/* Search bar: pill shape, soft shadow */
+.gsearch { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 18px; background: #fff; border: 1px solid #dfe1e5; border-radius: 26px; box-shadow: 0 1px 6px rgba(32, 33, 36, .16); }
+.gsearch svg { width: 18px; height: 18px; color: #9aa0a6; }
+.gsearch-query { flex: 1; font: 400 15px Arial, sans-serif; color: #202124; }
+.gsearch-x { color: #70757a; font-size: 22px; line-height: 1; }
+.gsearch-sep { width: 1px; height: 24px; background: #dfe1e5; }
+.gsearch-go svg { color: #4285f4; width: 19px; height: 19px; }
+
+/* Result: blue title, grey snippet */
+.gresult { padding: 18px; border: 1px solid #e4e9f0; border-radius: 14px; background: #fff; box-shadow: 0 9px 25px #15384c09; font-family: Arial, sans-serif; }
+.gresult-site { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.gresult-favicon { display: grid; place-items: center; width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%; background: #14243a; color: #91f3c7; font: 800 15px/1 'Manrope', sans-serif; }
+.gresult-site > div { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.gresult-site strong { font-size: 12px; font-weight: 400; color: #202124; }
+.gresult-site small { font-size: 11px; color: #4d5156; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gresult h4 { margin: 0 0 6px; color: #1a0dab; font: 400 18px/1.3 Arial, sans-serif; }
+.gresult p { margin: 0; color: #4d5156; font-size: 12px; line-height: 1.6; }
+.gresult-rating { margin-top: 10px; color: #70757a; font-size: 11px; }
+.gresult-rating span { color: #fbbc04; letter-spacing: 1px; margin-right: 4px; }
+
 .journey-outcome { display: flex; align-items: center; gap: 11px; border: 1px solid #b9e9d0; border-radius: 11px; background: #e9f9f1; padding: 14px; }
 .journey-outcome-icon { display: grid; place-items: center; width: 31px; height: 31px; border-radius: 9px; background: #c5f0d9; color: #17734b; }
 .journey-outcome-icon svg { width: 18px; height: 18px; }
@@ -236,9 +245,9 @@ svg { width: 19px; height: 19px; display: inline-block; flex-shrink: 0; }
   .journey { padding: 16px; }
   .journey-kicker { font-size: 9px; }
   .journey-indicator { font-size: 8px; }
-  .journey-result { padding: 12px; gap: 9px; }
-  .journey-result strong { font-size: 12px; }
-  .journey-search > span:nth-child(2) { font-size: 12px; }
+  .gsearch-query { font-size: 13px; }
+  .gresult { padding: 14px; }
+  .gresult h4 { font-size: 16px; }
   .value-strip-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
   .value-strip-inner > span { font-size: 11px; }
   .section { padding: 64px 0; }
@@ -316,4 +325,22 @@ svg { width: 19px; height: 19px; display: inline-block; flex-shrink: 0; }
   .contact-form { padding: 25px 19px; }
   .form-row { grid-template-columns: 1fr; }
   .contact-reasons { gap: 12px; }
+}
+
+
+/* Direct contact: WhatsApp and phone */
+.btn-whatsapp { background: #25d366; color: #073b1c; }
+.btn-whatsapp:hover { background: #1fbd5b; }
+.btn-whatsapp svg, .contact-direct .btn svg { width: 18px; height: 18px; }
+.hero-direct { margin: 20px 0 0; color: #b8c5d6; font-size: 13px; }
+.hero-direct a { color: #a7f3ce; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.contact-direct { display: grid; gap: 12px; margin-top: 34px; }
+.contact-direct > span { color: #263c52; font-size: 13px; font-weight: 700; }
+.contact-direct-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+.contact-direct-buttons .btn { gap: 9px; }
+
+/* Pricing: three cards, custom card */
+.price-card-top .price-amount strong { white-space: nowrap; }
+@media (max-width: 530px) {
+  .contact-direct-buttons .btn { width: 100%; }
 }
