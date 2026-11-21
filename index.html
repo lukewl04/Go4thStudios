@@ -1,12 +1,37 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>go4th</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>Go4th Studio | Websites for Local Businesses</title>
+    <meta name="description" content="Professional, search-friendly websites for plumbers, electricians and local businesses. Fixed prices from £200. Get a free quote today." />
+    <link rel="canonical" href="https://go4th.cc/" />
+
+    <!-- Link preview (WhatsApp, Facebook, LinkedIn, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go4th Studio" />
+    <meta property="og:title" content="Go4th Studio | Websites for Local Businesses" />
+    <meta property="og:description" content="Professional, search-friendly websites for local businesses. Fixed prices from £200. Get a free quote today." />
+    <meta property="og:url" content="https://go4th.cc/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Go4th Studio | Websites for Local Businesses" />
+    <meta name="twitter:description" content="Professional, search-friendly websites for local businesses. Fixed prices from £200. Get a free quote today." />
   </head>
   <body>
+    <!-- Hidden copy of the contact form so Netlify detects it (the real form is rendered by React) -->
+    <form name="go4th-contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="business" />
+      <input type="tel" name="phone" />
+      <input type="text" name="service" />
+      <input type="text" name="plan" />
+      <textarea name="message"></textarea>
+      <input name="bot-field" />
+    </form>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
